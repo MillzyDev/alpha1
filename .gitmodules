@@ -1,0 +1,3 @@
+[submodule "alpha1-proxy"]
+	path = alpha1-proxy
+	url = https://github.com/MillzyDev/alpha1-proxy.git
