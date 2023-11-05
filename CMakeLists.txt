@@ -37,3 +37,6 @@ target_include_directories(alpha1 PRIVATE .)
 target_include_directories(alpha1 PRIVATE ${SOURCE_DIR})
 target_include_directories(alpha1 PRIVATE ${INCLUDE_DIR})
 target_include_directories(alpha1 PUBLIC ${SHARED_DIR})
+
+add_subdirectory(rcmp)
+target_link_libraries(alpha1 PRIVATE rcmp)
