@@ -1,3 +1,6 @@
 [submodule "rcmp"]
 	path = rcmp
 	url = https://github.com/Smertig/rcmp.git
+[submodule "alpha1-proxy"]
+	path = alpha1-proxy
+	url = https://github.com/MillzyDev/alpha1-proxy.git
