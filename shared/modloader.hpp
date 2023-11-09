@@ -7,8 +7,8 @@
 namespace alpha1 {
     struct Library {
         HMODULE handle;
-        wchar_t *name;
-        HRESULT error;
+        const wchar_t *name;
+        DWORD error;
     };
 
     struct ModInfo {
@@ -21,8 +21,8 @@ namespace alpha1 {
 
     struct Mod {
         HMODULE handle;
-        wchar_t *name;
-        HRESULT error;
+        const wchar_t *name;
+        DWORD error;
         ModInfo info;
         setup_func setup;
         load_func load;
