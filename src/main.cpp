@@ -1,5 +1,7 @@
 #include "modloader.hpp"
 
-ALPHA1_API void modloader_init() {
+#include <windows.h>
 
+ ALPHA1_API [[maybe_unused]] void modloader_init() {
+    MessageBoxA(nullptr, "Modloader loaded!", "Hi from alpha1!", MB_OK);
 }
