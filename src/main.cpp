@@ -5,6 +5,8 @@
 #include <windows.h>
 
 void create_paths() {
+    if (!exists(get_logs_dir()))
+        std::filesystem::create_directory(get_logs_dir());
     if (!exists(get_libs_dir()))
         std::filesystem::create_directory(get_libs_dir());
     if (!exists(get_user_data_dir()))
