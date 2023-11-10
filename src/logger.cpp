@@ -32,7 +32,7 @@ namespace alpha1 {
 
         log_file_stream = std::ofstream(latest_log);
 
-        if (!enable_console) {
+        if (enable_console) {
             if (AllocConsole()) {
                 freopen("CONOUT$", "w", stdout);
                 use_console = true;
