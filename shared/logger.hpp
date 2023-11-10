@@ -20,12 +20,12 @@ namespace alpha1 {
 
     class logger  {
     private:
-        const alpha1::mod_info mod_info_;
+        alpha1::mod_info mod_info_;
 
     public:
-        explicit logger(alpha1::mod_info mod_info);
+        explicit logger(const alpha1::mod_info& mod_info);
 
-        void log(log_level level, const std::string& message);
+        void log(log_level level, const std::string& message) const;
 
         template<typename... Args>
         void info(std::format_string<Args...> fmt, Args &&...args);
