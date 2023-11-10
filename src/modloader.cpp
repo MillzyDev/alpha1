@@ -1,7 +1,10 @@
 #include "modloader_internal.hpp"
 #include "modloader.hpp"
+#include "main.hpp"
 
 std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir) {
+    get_logger().info("Loading libraries...");
+
     std::vector<alpha1::library> libs;
 
     for (const auto& file_entry : std::filesystem::directory_iterator(libs_dir)) {
@@ -9,12 +12,20 @@ std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir) {
             continue;
 
         const wchar_t *module_path = file_entry.path().c_str();
+        std::string filename = file_entry.path().filename().string();
+        get_logger().info("Attempting to load {}", filename);
+
         if (!GetModuleHandleW(module_path)) {
             HMODULE lib_handle = LoadLibraryW(module_path);
 
+            if (!lib_handle)
+                get_logger().error("Failed to load {}", filename);
+            else
+                get_logger().info("Successfully loaded {}", filename);
+
             alpha1::library library(
                 lib_handle,
-                file_entry.path().filename().string(),
+                filename,
                 lib_handle ? NULL : GetLastError()
             );
 
@@ -22,6 +33,7 @@ std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir) {
         }
     }
 
+    get_logger().info("Finished loading ({}) libraries!", libs.size());
     return libs;
 }
 

@@ -1,8 +1,13 @@
 #include "modloader_internal.hpp"
 #include "files.hpp"
-#include "logger.hpp"
+#include "main.hpp"
 
 #include <windows.h>
+
+alpha1::logger &get_logger() {
+    static auto logger = alpha1::logger({"alpha1", "0.1.0" });
+    return logger;
+}
 
 void create_paths() {
     if (!exists(get_logs_dir()))
@@ -17,11 +22,9 @@ void create_paths() {
 
 ALPHA1_API [[maybe_unused]] void modloader_init() {
     create_paths();
-    alpha1::init_logger(false, true);
 
-    alpha1::log(alpha1::log_level::INFO, "alpha1", "Hello world!");
+    alpha1::init_logger(false, true);
+    get_logger().info("Initialised logger.");
 
     load_libs(get_libs_dir());
-
-    MessageBoxA(nullptr, "Modloader loaded!", "Hi from alpha1!", MB_OK);
 }
