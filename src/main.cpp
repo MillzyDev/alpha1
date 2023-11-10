@@ -17,7 +17,7 @@ void create_paths() {
 
 ALPHA1_API [[maybe_unused]] void modloader_init() {
     create_paths();
-    alpha1::init_logger(true, true);
+    alpha1::init_logger(false, true);
 
     alpha1::log(alpha1::log_level::INFO, "alpha1", "Hello world!");
 
