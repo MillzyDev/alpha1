@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <string>
 
 #define ALPHA1_API extern "C" __declspec(dllexport)
 
