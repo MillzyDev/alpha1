@@ -97,11 +97,11 @@ namespace alpha1 {
         }
     }
 
-    logger::logger(alpha1::mod_info mod_info) {
+    logger::logger(const alpha1::mod_info& mod_info) {
         this->mod_info_ = mod_info;
     }
 
-    void logger::log(log_level level, const std::string& message) {
+    void logger::log(log_level level, const std::string& message) const {
         alpha1::log(level, this->mod_info_.name, message);
     }
 
