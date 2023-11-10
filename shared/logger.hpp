@@ -15,7 +15,7 @@ namespace alpha1 {
         DEBUG
     };
 
-    void init_logger(bool enable_logging, bool enable_console);
+    void init_logger(bool no_logging, bool enable_console);
     void log(log_level level, const std::string& source_name, const std::string& message);
 
     class logger  {
