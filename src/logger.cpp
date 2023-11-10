@@ -20,7 +20,7 @@ namespace alpha1 {
             auto system_time = std::chrono::clock_cast<std::chrono::system_clock>(file_time);
             auto date_time = std::chrono::current_zone()->to_local(system_time);
 
-            std::string log_file_name = std::format("alpha1_{:%Y-%m-%d_%h-%M-%S}.log", date_time);
+            std::string log_file_name = std::format("alpha1_{:%Y-%m-%d_%H-%M-%S}.log", date_time);
             std::filesystem::path full_log_file_name = logs_dir / log_file_name;
 
             std::filesystem::rename(latest_log, full_log_file_name);
@@ -56,8 +56,7 @@ namespace alpha1 {
         auto fraction = now - seconds;
         auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(fraction);
 
-        std::string partial_timestamp = std::format("{:%h-%M-%S}", now);
-        std::string timestamp = std::format("{}.{}", partial_timestamp, static_cast<int>(milliseconds.count()));
+        std::string timestamp = std::format("{:%H:%M:%S}", now);
 
         std::string level_string;
         int color_attribute;
