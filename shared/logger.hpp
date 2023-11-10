@@ -28,18 +28,33 @@ namespace alpha1 {
         void log(log_level level, const std::string& message) const;
 
         template<typename... Args>
-        void info(std::format_string<Args...> fmt, Args &&...args);
+        inline void info(std::format_string<Args...> fmt, Args &&...args) {
+            std::string message = std::vformat(fmt.get(), std::make_format_args(args...));
+            log(log_level::INFO, message);
+        }
 
         template<typename... Args>
-        void warn(std::format_string<Args...> fmt, Args &&...args);
+        inline void warn(std::format_string<Args...> fmt, Args &&...args) {
+            std::string message = std::vformat(fmt.get(), std::make_format_args(args...));
+            log(log_level::WARNING, message);
+        }
 
         template<typename... Args>
-        void error(std::format_string<Args...> fmt, Args &&...args);
+        inline void error(std::format_string<Args...> fmt, Args &&...args) {
+            std::string message = std::vformat(fmt.get(), std::make_format_args(args...));
+            log(log_level::ERR, message);
+        }
 
         template<typename... Args>
-        void crit(std::format_string<Args...> fmt, Args &&...args);
+        inline void crit(std::format_string<Args...> fmt, Args &&...args) {
+            std::string message = std::vformat(fmt.get(), std::make_format_args(args...));
+            log(log_level::CRITICAL, message);
+        }
 
         template<typename... Args>
-        void debug(std::format_string<Args...> fmt, Args &&...args);
+        inline void debug(std::format_string<Args...> fmt, Args &&...args) {
+            std::string message = std::vformat(fmt.get(), std::make_format_args(args...));
+            log(log_level::DEBUG, message);
+        }
     };
 }

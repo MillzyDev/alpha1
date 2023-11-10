@@ -104,34 +104,4 @@ namespace alpha1 {
     void logger::log(log_level level, const std::string& message) const {
         alpha1::log(level, this->mod_info_.name, message);
     }
-
-    template<typename... Args>
-    void logger::debug(std::format_string<Args...> fmt, Args &&... args) {
-        std::string message = std::format(fmt, args...);
-        log(log_level::DEBUG, message);
-    }
-
-    template<typename... Args>
-    void logger::crit(std::format_string<Args...> fmt, Args &&... args) {
-        std::string message = std::format(fmt, args...);
-        log(log_level::CRITICAL, message);
-    }
-
-    template<typename... Args>
-    void logger::error(std::format_string<Args...> fmt, Args &&... args) {
-        std::string message = std::format(fmt, args...);
-        log(log_level::ERR, message);
-    }
-
-    template<typename... Args>
-    void logger::warn(std::format_string<Args...> fmt, Args &&... args) {
-        std::string message = std::format(fmt, args...);
-        log(log_level::WARNING, message);
-    }
-
-    template<typename... Args>
-    void logger::info(std::format_string<Args...> fmt, Args &&...args) {
-        std::string message = std::format(fmt, args...);
-        log(log_level::INFO, message);
-    }
 }
