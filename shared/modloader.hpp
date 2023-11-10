@@ -5,25 +5,25 @@
 #define ALPHA1_API extern "C" __declspec(dllexport)
 
 namespace alpha1 {
-    struct Library {
+    struct library {
         HMODULE handle;
-        const wchar_t *name;
+        std::string name;
         DWORD error;
     };
 
-    struct ModInfo {
-        wchar_t *name;
-        wchar_t *version;
+    struct mod_info {
+        std::string name;
+        std::string version;
     };
 
-    typedef void (*setup_func)(ModInfo &info);
+    typedef void (*setup_func)(mod_info &info);
     typedef void (*load_func)();
 
-    struct Mod {
+    struct mod {
         HMODULE handle;
-        const wchar_t *name;
+        std::string name;
         DWORD error;
-        ModInfo info;
+        mod_info info;
         setup_func setup;
         load_func load;
     };
