@@ -40,3 +40,8 @@ std::filesystem::path get_user_data_dir() {
 std::filesystem::path get_game_dir() {
     return base_dir;
 }
+
+std::filesystem::path get_logs_dir() {
+    static std::filesystem::path logs_dir = base_dir / ALPHA1_DIR_NAME / "logs";
+    return logs_dir;
+}
