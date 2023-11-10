@@ -89,6 +89,7 @@ namespace alpha1 {
 
         std::string full_message = std::format("[{}] [{}] [{}] {}", timestamp, source_name, level_string, message);
         log_file_stream << full_message << std::endl;
+        log_file_stream.flush();
 
         if (use_console) {
             static HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
