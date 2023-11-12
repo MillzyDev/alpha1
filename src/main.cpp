@@ -1,6 +1,7 @@
 #include "modloader_internal.hpp"
 #include "files.hpp"
 #include "main.hpp"
+#include "hooks.hpp"
 
 #include <windows.h>
 
@@ -27,4 +28,6 @@ ALPHA1_API [[maybe_unused]] void modloader_init() {
     get_logger().info("Initialised logger.");
 
     load_libs(get_libs_dir());
+
+    install_hooks();
 }
