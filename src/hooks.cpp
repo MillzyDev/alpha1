@@ -7,6 +7,8 @@
 
 #include <windows.h>
 
+// TODO: Replace rcmp with new hooking lib - crash.
+
 void install_hooks() {
     get_logger().info("Installing hooks...");
 
