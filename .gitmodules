@@ -1,3 +1,6 @@
 [submodule "alpha1-proxy"]
 	path = alpha1-proxy
 	url = https://github.com/MillzyDev/alpha1-proxy.git
+[submodule "Dobby"]
+	path = Dobby
+	url = https://github.com/BepInEx/Dobby.git
