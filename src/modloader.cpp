@@ -31,7 +31,7 @@ std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir) {
         libs.push_back(library);
     }
 
-    get_logger().info("----- Successfully loading ({}) libraries!", libs.size());
+    get_logger().info("----- Successfully loaded ({}) libraries!", libs.size());
     return libs;
 }
 
