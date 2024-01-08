@@ -5,14 +5,14 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS  ON)
 
 set(CMAKE_SHARED_LIBRARY_PREFIX  "")
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED 20)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED 23)
 
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(SHARED_DIR ${CMAKE_CURRENT_SOURCE_DIR}/shared)
 
-add_compile_options(-frtti -fexceptions)
+add_compile_options(-frtti -fexceptions -Wreturn-type)
 add_compile_options(-O3)
 
 MACRO(RECURSE_FILES return_list filter)
@@ -39,6 +39,3 @@ target_include_directories(alpha1 PRIVATE .)
 target_include_directories(alpha1 PRIVATE ${SOURCE_DIR})
 target_include_directories(alpha1 PRIVATE ${INCLUDE_DIR})
 target_include_directories(alpha1 PUBLIC ${SHARED_DIR})
-
-add_subdirectory(rcmp)
-target_link_libraries(alpha1 PRIVATE rcmp)
