@@ -1,9 +1,11 @@
 #include "hooks.hpp"
 #include "main.hpp"
 #include "modloader_internal.hpp"
+#include "modloader.hpp"
 #include "files.hpp"
-#include "dobby.h"
 #include "il2cpp_types.hpp"
+
+#include "dobby.h"
 
 #include <windows.h>
 
@@ -25,11 +27,15 @@ void *(*orig_il2cpp_runtime_invoke)(const MethodInfo *method, void *obj, void **
 void *hook_il2cpp_runtime_invoke(const MethodInfo *method, void *obj, void **params, void **exc) {
     void *ret = orig_il2cpp_runtime_invoke(method, obj, params, exc);
 
-    if (std::string(method->name) == "Start") {
-        DobbyDestroy(il2cpp_runtime_invoke_func);
-        get_logger().info("runtime_invoke hook: Start method invoked, destroyed hook.");
+    if (std::string(method->name) != "Start")
+        return ret;
 
-    }
+    std::vector<alpha1::mod> loaded_mods = alpha1::modloader::get_loaded_mods();
+    for (const auto& mod : loaded_mods)
+        mod.load(); // call load function
+        
+    DobbyDestroy(il2cpp_runtime_invoke_func);
+    get_logger().info("runtime_invoke hook: Start method invoked, destroyed hook.");
 
     return ret;
 }
