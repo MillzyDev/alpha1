@@ -33,7 +33,7 @@ void *hook_il2cpp_runtime_invoke(const MethodInfo *method, void *obj, void **par
     std::vector<alpha1::mod> loaded_mods = alpha1::modloader::get_loaded_mods();
     for (const auto& mod : loaded_mods)
         mod.load(); // call load function
-        
+
     DobbyDestroy(il2cpp_runtime_invoke_func);
     get_logger().info("runtime_invoke hook: Start method invoked, destroyed hook.");
 
