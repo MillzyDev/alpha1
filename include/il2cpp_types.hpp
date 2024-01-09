@@ -4,34 +4,34 @@
 
 typedef struct MethodInfo // we only need the name, rest is to make sure the type is the right size
 {
-    void *methodPointer;
-    void *virtualMethodPointer;
-    void *invoker_method;
+    [[maybe_unused]] void *methodPointer;
+    [[maybe_unused]] void *virtualMethodPointer;
+    [[maybe_unused]] void *invoker_method;
     const char* name;
-    void *klass;
-    const void *return_type;
-    const void** parameters;
+    [[maybe_unused]] void *klass;
+    [[maybe_unused]] const void *return_type;
+    [[maybe_unused]] const void** parameters;
 
     union
     {
-        const void* rgctx_data;
-        void *methodMetadataHandle;
+        [[maybe_unused]] const void* rgctx_data;
+        [[maybe_unused]] void *methodMetadataHandle;
     };
 
     union
     {
-        const void *genericMethod;
-        void *genericContainerHandle;
+        [[maybe_unused]] const void *genericMethod;
+        [[maybe_unused]] void *genericContainerHandle;
     };
 
-    uint32_t token;
-    uint16_t flags;
-    uint16_t iflags;
-    uint16_t slot;
-    uint8_t parameters_count;
-    uint8_t is_generic : 1;
-    uint8_t is_inflated : 1;
-    uint8_t wrapper_type : 1;
-    uint8_t has_full_generic_sharing_signature : 1;
-    uint8_t indirect_call_via_invokers : 1;
+    [[maybe_unused]] uint32_t token;
+    [[maybe_unused]] uint16_t flags;
+    [[maybe_unused]] uint16_t iflags;
+    [[maybe_unused]] uint16_t slot;
+    [[maybe_unused]] uint8_t parameters_count;
+    [[maybe_unused]] uint8_t is_generic : 1;
+    [[maybe_unused]] uint8_t is_inflated : 1;
+    [[maybe_unused]] uint8_t wrapper_type : 1;
+    [[maybe_unused]] uint8_t has_full_generic_sharing_signature : 1;
+    [[maybe_unused]] uint8_t indirect_call_via_invokers : 1;
 } MethodInfo;
