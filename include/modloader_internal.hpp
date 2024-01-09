@@ -5,5 +5,10 @@
 
 #include "modloader.hpp"
 
-std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir);
-std::vector<alpha1::mod> load_mods(const std::filesystem::path &mods_dir);
+namespace alpha1::modloader {
+    std::vector<alpha1::library> attempted_libs = {};
+    std::vector<alpha1::mod> attempted_mods = {};
+
+    std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir);
+    std::vector<alpha1::mod> load_mods(const std::filesystem::path &mods_dir);
+}

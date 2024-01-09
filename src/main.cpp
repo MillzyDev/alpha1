@@ -27,7 +27,7 @@ ALPHA1_API [[maybe_unused]] void modloader_init() {
     alpha1::init_logger(false, true);
     get_logger().info("Initialised logger.");
 
-    load_libs(get_libs_dir());
+    alpha1::modloader::attempted_libs = alpha1::modloader::load_libs(get_libs_dir());
 
     install_hooks();
 }
