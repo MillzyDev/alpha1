@@ -1,8 +1,10 @@
+#include <algorithm>
+
 #include "modloader_internal.hpp"
 #include "modloader.hpp"
 #include "main.hpp"
 
-std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir) {
+std::vector<alpha1::library> alpha1::modloader::load_libs(const std::filesystem::path &libs_dir) {
     get_logger().info("Loading libraries...");
 
     std::vector<alpha1::library> libs;
@@ -35,7 +37,7 @@ std::vector<alpha1::library> load_libs(const std::filesystem::path &libs_dir) {
     return libs;
 }
 
-std::vector<alpha1::mod> load_mods(const std::filesystem::path &mods_dir) {
+std::vector<alpha1::mod> alpha1::modloader::load_mods(const std::filesystem::path &mods_dir) {
     get_logger().info("Loading mods...");
 
     std::vector<alpha1::mod> mods;
@@ -48,6 +50,8 @@ std::vector<alpha1::mod> load_mods(const std::filesystem::path &mods_dir) {
         std::string filename = file_entry.path().filename().string();
 
         HMODULE mod_handle = LoadLibraryW(module_path);
+
+        // TODO: check for load library error first
 
         auto setup_func = reinterpret_cast<alpha1::setup_func>(GetProcAddress(mod_handle, "setup"));
         auto load_func = reinterpret_cast<alpha1::load_func>(GetProcAddress(mod_handle, "load"));
@@ -75,4 +79,36 @@ std::vector<alpha1::mod> load_mods(const std::filesystem::path &mods_dir) {
 
     get_logger().info("----- Successfully loaded ({}) mods.", mods.size());
     return mods;
+}
+
+std::vector<alpha1::library> alpha1::modloader::get_libraries() {
+    return alpha1::modloader::attempted_libs;
+}
+
+std::vector<alpha1::library> alpha1::modloader::get_loaded_libraries() {
+    static std::vector<alpha1::library> loaded_libraries = {};
+
+    if (loaded_libraries.empty())
+        std::copy_if(alpha1::modloader::attempted_libs.begin(),
+                     alpha1::modloader::attempted_libs.end(),
+                     std::back_inserter(loaded_libraries),
+                     [](const alpha1::library &lib) {
+            return lib.handle && !lib.error;
+        });
+
+    return loaded_libraries;
+}
+
+std::vector<alpha1::library> alpha1::modloader::get_failed_libraries() {
+    static std::vector<alpha1::library> failed_libraries = {};
+
+    if (failed_libraries.empty())
+        std::copy_if(alpha1::modloader::attempted_libs.begin(),
+                     alpha1::modloader::attempted_libs.end(),
+                     std::back_inserter(failed_libraries),
+                     [](const alpha1::library &lib) {
+            return !lib.handle || lib.error;
+        });
+
+    return failed_libraries;
 }
