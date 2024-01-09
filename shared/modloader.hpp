@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include <string>
+#include <vector>
 
 #define ALPHA1_API extern "C" __declspec(dllexport)
 
@@ -28,4 +29,14 @@ namespace alpha1 {
         setup_func setup;
         load_func load;
     };
+}
+
+namespace alpha1::modloader {
+    std::vector<alpha1::library> get_libraries();
+    std::vector<alpha1::library> get_loaded_libraries();
+    std::vector<alpha1::library> get_failed_libraries();
+
+    std::vector<alpha1::mod> get_mods();
+    std::vector<alpha1::mod> get_loaded_mods();
+    std::vector<alpha1::mod> get_failed_mods();
 }
