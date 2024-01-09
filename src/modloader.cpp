@@ -93,7 +93,7 @@ std::vector<alpha1::library> alpha1::modloader::get_loaded_libraries() {
                      alpha1::modloader::attempted_libs.end(),
                      std::back_inserter(loaded_libraries),
                      [](const alpha1::library &lib) {
-            return lib.handle && !lib.error;
+            return lib.handle && !lib.error; // non-null handle and no errors
         });
 
     return loaded_libraries;
@@ -107,8 +107,40 @@ std::vector<alpha1::library> alpha1::modloader::get_failed_libraries() {
                      alpha1::modloader::attempted_libs.end(),
                      std::back_inserter(failed_libraries),
                      [](const alpha1::library &lib) {
-            return !lib.handle || lib.error;
+            return !lib.handle || lib.error; // null handle or an error occurred
         });
 
     return failed_libraries;
+}
+
+std::vector<alpha1::mod> alpha1::modloader::get_mods() {
+    return alpha1::modloader::attempted_mods;
+}
+
+std::vector<alpha1::mod> alpha1::modloader::get_loaded_mods() {
+    static std::vector<alpha1::mod> loaded_mods = {};
+
+    if (loaded_mods.empty())
+        std::copy_if(alpha1::modloader::attempted_mods.begin(),
+                     alpha1::modloader::attempted_mods.end(),
+                     std::back_inserter(loaded_mods),
+                     [](const alpha1::mod &mod) {
+            return mod.handle && !mod.error;
+        });
+
+    return loaded_mods;
+}
+
+std::vector<alpha1::mod> alpha1::modloader::get_failed_mods() {
+    static std::vector<alpha1::mod> failed_mods = {};
+
+    if (failed_mods.empty())
+        std::copy_if(alpha1::modloader::attempted_mods.begin(),
+                     alpha1::modloader::attempted_mods.end(),
+                     std::back_inserter(failed_mods),
+                     [](const alpha1::mod &mod) {
+            return !mod.handle || mod.error;
+        });
+
+    return failed_mods;
 }
