@@ -5,6 +5,12 @@
 #include <string>
 #include <format>
 
+#ifdef ALPHA1_EXPORT_SYMBOLS
+#define ALPHA1_EXPORT __declspec(dllexport)
+#else
+#define ALPHA1_EXPORT __declspec(dllimport)
+#endif
+
 namespace alpha1 {
     enum log_level {
         NONE,
@@ -23,9 +29,9 @@ namespace alpha1 {
         alpha1::mod_info mod_info_;
 
     public:
-        explicit logger(const alpha1::mod_info& mod_info);
+        ALPHA1_EXPORT explicit logger(const alpha1::mod_info& mod_info);
 
-        void log(log_level level, const std::string& message) const;
+        ALPHA1_EXPORT void log(log_level level, const std::string& message) const;
 
         template<typename... Args>
         inline void info(std::format_string<Args...> fmt, Args &&...args) {

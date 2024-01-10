@@ -6,6 +6,12 @@
 
 #define ALPHA1_API extern "C" __declspec(dllexport)
 
+#ifdef ALPHA1_EXPORT_SYMBOLS
+#define ALPHA1_EXPORT __declspec(dllexport)
+#else
+#define ALPHA1_EXPORT __declspec(dllimport)
+#endif
+
 namespace alpha1 {
     struct library {
         HMODULE handle;
@@ -32,11 +38,11 @@ namespace alpha1 {
 }
 
 namespace alpha1::modloader {
-    std::vector<alpha1::library> get_libraries();
-    std::vector<alpha1::library> get_loaded_libraries();
-    std::vector<alpha1::library> get_failed_libraries();
+    ALPHA1_EXPORT std::vector<alpha1::library> get_libraries();
+    ALPHA1_EXPORT std::vector<alpha1::library> get_loaded_libraries();
+    ALPHA1_EXPORT std::vector<alpha1::library> get_failed_libraries();
 
-    std::vector<alpha1::mod> get_mods();
-    std::vector<alpha1::mod> get_loaded_mods();
-    std::vector<alpha1::mod> get_failed_mods();
+    ALPHA1_EXPORT std::vector<alpha1::mod> get_mods();
+    ALPHA1_EXPORT std::vector<alpha1::mod> get_loaded_mods();
+    ALPHA1_EXPORT std::vector<alpha1::mod> get_failed_mods();
 }

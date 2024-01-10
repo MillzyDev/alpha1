@@ -42,3 +42,5 @@ target_include_directories(alpha1 PUBLIC ${SHARED_DIR})
 
 add_subdirectory(Dobby)
 target_link_libraries(alpha1 PRIVATE dobby)
+
+target_compile_definitions(alpha1 PRIVATE -DALPHA1_EXPORT_SYMBOLS)
