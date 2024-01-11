@@ -91,7 +91,7 @@ void alpha1::modloader::load_mods(const std::filesystem::path &mods_dir) {
         );
 
         if (mod_handle && setup_func && load_func) {
-            get_logger().info("MODLOADER | Successfully loaded {}|v{}", mod_info.name, mod_info.version);
+            get_logger().info("MODLOADER | Mod loaded: {} (v{})", mod_info.name, mod_info.version);
         }
 
         attempted_mods.push_back(mod);
