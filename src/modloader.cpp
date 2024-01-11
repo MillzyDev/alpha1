@@ -75,9 +75,11 @@ void alpha1::modloader::load_mods(const std::filesystem::path &mods_dir) {
         }
         else {
             error = GetLastError();
+            get_logger().error("MODLOADER | Failed to load {} code {}", filename, error);
         }
 
         alpha1::mod_info mod_info{};
+        setup_func(mod_info);
 
         alpha1::mod mod(
             mod_handle,
@@ -87,6 +89,10 @@ void alpha1::modloader::load_mods(const std::filesystem::path &mods_dir) {
             setup_func,
             load_func
         );
+
+        if (mod_handle && setup_func && load_func) {
+            get_logger().info("MODLOADER | Successfully loaded {}|v{}", mod_info.name, mod_info.version);
+        }
 
         attempted_mods.push_back(mod);
     }
