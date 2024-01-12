@@ -52,8 +52,6 @@ namespace alpha1 {
         if (disable_logging || level == log_level::NONE) return;
 
         auto now = std::chrono::system_clock::now();
-        auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(now);
-        auto fraction = now - seconds;
 
         std::string timestamp = std::format("{:%H:%M:%S}", now);
 
