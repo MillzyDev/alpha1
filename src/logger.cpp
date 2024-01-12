@@ -54,7 +54,6 @@ namespace alpha1 {
         auto now = std::chrono::system_clock::now();
         auto seconds = std::chrono::time_point_cast<std::chrono::seconds>(now);
         auto fraction = now - seconds;
-        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(fraction);
 
         std::string timestamp = std::format("{:%H:%M:%S}", now);
 
