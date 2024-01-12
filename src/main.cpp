@@ -5,6 +5,13 @@
 
 #include <windows.h>
 
+static std::string ascii_title[] = {"        _       _           _ ",
+                                    "   __ _| |_ __ | |__   __ _/ |",
+                                    "  / _` | | '_ \\| '_ \\ / _` | |",
+                                    " | (_| | | |_) | | | | (_| | |",
+                                    "  \\__,_|_| .__/|_| |_|\\__,_|_|",
+                                    "         |_|    "};
+
 alpha1::logger &get_logger() {
     static auto logger = alpha1::logger({"alpha1", "0.1.0" });
     return logger;
@@ -25,6 +32,12 @@ ALPHA1_API [[maybe_unused]] void modloader_init() {
     create_paths();
 
     alpha1::init_logger(false, true);
+
+    get_logger().info("*********************************");
+    for (std::string line : ascii_title)
+        get_logger().info("{}", line);
+    get_logger().info("*********************************");
+
     get_logger().info("Initialised logger.");
 
     alpha1::modloader::load_libs(get_libs_dir());
