@@ -1,13 +1,13 @@
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
+# Xmake cache
+.xmake/
+build/
+
+# MacOS Cache
+.DS_Store
+
+# CMake Generated Files
+CMakeLists.txt
+cmake-*/
+
+# IDE Files
 .idea/
-cmake-build-debug/
