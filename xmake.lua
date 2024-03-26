@@ -9,8 +9,19 @@ target("proxy")
 
     set_basename("winhttp") -- override output name
     set_prefixname("")
-    set_extension(".dll")
 
-    add_cxxflags("-stdlib=libc++") -- use llvm stl
-    add_shflags("-static") -- static link with libc++
+    add_shflags("-static") -- static link with stl
+target_end()
+
+target("alpha1")
+    set_kind("shared")
+    set_languages("cxx20")
+
+    add_files("src/*.cpp")
+    add_includedirs("include")
+    add_includedirs("shared")
+
+    add_shflags("-static")
+
+    set_prefixname("")
 target_end()
