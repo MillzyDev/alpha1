@@ -10,6 +10,7 @@ target("proxy")
     set_basename("winhttp") -- override output name
     set_prefixname("")
 
+    add_cxflags("-stdlib=libc++")
     add_shflags("-static") -- static link with stl
 target_end()
 
@@ -21,6 +22,7 @@ target("alpha1")
     add_includedirs("include")
     add_includedirs("shared")
 
+    add_cxflags("-stdlib=libc++")
     add_shflags("-static")
 
     set_prefixname("")
