@@ -1,6 +1,9 @@
 #include <windows.h>
 
+#include <filesystem>
+
 #include "winhttp.hpp"
+#include "loader.hpp"
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "ConstantFunctionResult"
@@ -11,8 +14,10 @@
     DisableThreadLibraryCalls(hinst_dll);
     init_proxy();
 
-    // TODO: Check if unity
-    // TODO: load modloader
+    std::filesystem::path install_dir;
+    if (is_current_process_compatible(install_dir)) {
+        load_alpha1(install_dir);
+    }
 
     return TRUE;
 }
