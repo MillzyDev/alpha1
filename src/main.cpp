@@ -1,1 +1,3 @@
-// TODO: need to finish this bit in the design doc
+extern "C" __declspec(dllexport) void alpha1_init() {
+
+}
