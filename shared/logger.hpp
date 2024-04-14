@@ -17,6 +17,7 @@ namespace alpha1 {
     private:
         static bool initialised;
         static std::ofstream log_file_stream;
+        static HANDLE console_out;
 
         mod_info mod_info;
 
@@ -24,10 +25,9 @@ namespace alpha1 {
         static void log_warn(std::string name, std::string msg);
         static void log_error(std::string name, std::string msg);
 
-        static void initialise_logger();
-
     public:
         explicit logger(struct mod_info mod_info);
+        static void initialise_logger();
 
         template<typename... Args>
         inline void info(std::format_string<Args...> format, Args &&...args) {
