@@ -22,6 +22,7 @@ bool is_current_process_compatible(std::filesystem::path &process_dir) {
         return false;
     }
 
+
     process_dir = main_dir;
     return true;
 }
