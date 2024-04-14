@@ -4,9 +4,9 @@
 #include "files.hpp"
 #include "utils.hpp"
 
-#define SUBDIR_GETTER(name, subdir)                                               \
+#define SUBDIR_GETTER(name, subdir)                                             \
 std::filesystem::path name() {                                                  \
-    static std::filesystem::path dir_path = ::alpha1::get_base_dir() / subdir;    \
+    static std::filesystem::path dir_path = ::alpha1::get_base_dir() / subdir;  \
     return dir_path;                                                            \
 }
 
