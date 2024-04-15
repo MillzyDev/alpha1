@@ -14,6 +14,9 @@
 #define STR_WRAP_INNER(k) #k
 
 #define DISPLAY_ERROR(code) alpha1::display_error(code, __FILE__ ":" STRINGIFY(__LINE__), false)
+
+// This macro is used when an error occurs and that the occurrence of the error means that the modloader can not
+// continue to function properly. A message box displays the error before we abort.
 #define DISPLAY_ERROR_ABORT(code) alpha1::display_error(code, __FILE_NAME__":" STR_WRAP(__LINE__), true)
 
 #define DISPLAY_ABORT_UNLESS(expr)      \
