@@ -49,7 +49,7 @@ namespace alpha1 {
         }
     }
 
-    void create_directories() {
+    void create_directories(::alpha1::logger &logger) {
         static std::filesystem::path required_dirs[] = {
                 get_mods_dir(),
                 get_libs_dir(),
@@ -64,6 +64,8 @@ namespace alpha1 {
                 if (error_code) {
                     DISPLAY_ERROR_ABORT(error_code.value());
                 }
+
+                logger.info("Created directory {0}", path.string());
             }
         }
     }

@@ -2,6 +2,8 @@
 
 #include <filesystem>
 
+#include "logger.hpp"
+
 #ifdef ALPHA1_DO_EXPORTS
 #define ALPHA1_EXPORT __declspec(dllexport)
 #else
@@ -18,7 +20,7 @@ namespace alpha1 {
 
 #ifdef ALPHA1_DO_EXPORTS
     void create_logs_directory();
-    void create_directories();
+    void create_directories(::alpha1::logger &logger);
 #endif
 }
 
