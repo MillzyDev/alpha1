@@ -6,11 +6,6 @@
 #define SHARED_LIB_EXT ".dll"
 
 typedef ::alpha1::mod_info (*get_info_t)();
-typedef void (*load_t)();
-typedef void (*start_t)();
-typedef void (*scene_loaded_t)(int32_t scene_handle, int32_t mode);
-typedef void (*scene_unloaded_t)(int32_t scene_handle);
-typedef void (*quit_t)();
 
 namespace alpha1 {
     void load_libraries(::alpha1::logger &logger) {
