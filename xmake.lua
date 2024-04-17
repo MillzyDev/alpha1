@@ -1,5 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
+add_requires("microsoft-detours")
+
 target("proxy")
     set_kind("shared")
     set_languages("cxx20")
@@ -21,7 +23,10 @@ target("alpha1")
     add_includedirs("include")
     add_includedirs("shared")
 
+    add_packages("microsoft-detours")
+
     add_shflags("-static")
+    add_shflags("-fdeclspec")
 
     set_prefixname("")
     add_defines("ALPHA1_DO_EXPORTS")
