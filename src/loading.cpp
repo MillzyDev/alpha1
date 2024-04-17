@@ -37,15 +37,17 @@ namespace alpha1 {
                 module = LoadLibraryExW(path.c_str(), nullptr, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR);
                 if (!module) {
                     DWORD sys_error = GetLastError();
+                    std::string error_message = get_error_message(sys_error);
+
                     logger.error("Failed to load library: {0}", path.stem().string());
                     logger.error("Code: {0} - {1}", sys_error, get_error_message(sys_error));
 
-                    // TODO: register failed library
+                    ::alpha1::add_failed_library({path, sys_error, error_message});
                     continue;
                 }
             }
 
-            // TODO register library
+            ::alpha1::add_library({path, module});
             logger.info("Loaded library: {0}", path.stem().string());
         }
 
@@ -81,10 +83,12 @@ namespace alpha1 {
                 module = LoadLibraryExW(path.c_str(), nullptr, LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR);
                 if (!module) {
                     DWORD sys_error = GetLastError();
+                    std::string error_message = get_error_message(sys_error);
+
                     logger.error("Failed to load mod: {0}", path.stem().string());
                     logger.error("Code: {0} - {1}", sys_error, get_error_message(sys_error));
 
-                    // TODO: register failed mod
+                    ::alpha1::add_failed_mod({path, sys_error, error_message});
                     continue;
                 }
             }
@@ -92,12 +96,13 @@ namespace alpha1 {
             FARPROC get_info_addr = GetProcAddress(module, "get_info");
             if (!get_info_addr) {
                 DWORD sys_error = GetLastError();
+                std::string error_message = get_error_message(sys_error);
 
                 logger.error("Failed to load mod: {0}", path.stem().string());
                 logger.error("Unable to get address of function get_info.");
-                logger.error("Code: {0} - {1}", sys_error, get_error_message(sys_error));
+                logger.error("Code: {0} - {1}", sys_error, error_message);
 
-                // TODO: register failed mod
+                ::alpha1::add_failed_mod({path, sys_error, error_message});
                 continue;
             }
 
@@ -111,7 +116,23 @@ namespace alpha1 {
             quit_t quit = reinterpret_cast<quit_t>(GetProcAddress(module, "quit"));
             SetLastError(0);
 
-            // TODO: Register mod
+            ::alpha1::add_mod({
+                path,
+                module,
+                info,
+                load,
+                start,
+                scene_loaded,
+                scene_unloaded,
+                quit
+            });
+
+            load();
+            logger.info("Loaded mod: {0} v{1} ({2})", info.name, info.version, info.author);
         }
+
+        size_t loaded_mods = ::alpha1::modloader::get_mods().size();
+        size_t failed_mods = ::alpha1::modloader::get_failed_mods().size();
+        logger.info("Successfully loaded {0} mods! ({1} failed)", loaded_mods, failed_mods);
     }
 }
