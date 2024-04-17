@@ -47,6 +47,11 @@ namespace alpha1 {
         std::string error_message;
     };
 
+    void add_mod(::alpha1::mod_metadata metadata);
+    void add_library(::alpha1::library_metadata metadata);
+    void add_failed_mod(::alpha1::failed_library mod);
+    void add_failed_library(::alpha1::failed_library library);
+
     class ALPHA1_EXPORT modloader {
         friend void add_mod(::alpha1::mod_metadata metadata);
         friend void add_library(::alpha1::library_metadata metadata);
@@ -60,10 +65,10 @@ namespace alpha1 {
         static std::vector<::alpha1::failed_library> failed_libraries;
 
     public:
-        [[nodiscard]] bool get_mod_info(std::string mod_name, ::alpha1::mod_metadata *metadata);
-        [[nodiscard]] std::vector<::alpha1::mod_metadata> get_mods();
-        [[nodiscard]] std::vector<::alpha1::library_metadata> get_libraries();
-        [[nodiscard]] std::vector<::alpha1::failed_library> get_failed_mods();
-        [[nodiscard]] std::vector<::alpha1::failed_library> get_failed_libraries();
+        [[nodiscard]] static bool get_mod_info(std::string mod_name, ::alpha1::mod_metadata *metadata);
+        [[nodiscard]] static std::vector<::alpha1::mod_metadata> get_mods();
+        [[nodiscard]] static std::vector<::alpha1::library_metadata> get_libraries();
+        [[nodiscard]] static std::vector<::alpha1::failed_library> get_failed_mods();
+        [[nodiscard]] static std::vector<::alpha1::failed_library> get_failed_libraries();
     };
 }
