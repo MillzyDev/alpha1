@@ -51,7 +51,9 @@ namespace alpha1 {
             logger.info("Loaded library: {0}", path.stem().string());
         }
 
-        logger.info("Finished loading libraries.");
+        size_t loaded_libs = ::alpha1::modloader::get_libraries().size();
+        size_t failed_libs = ::alpha1::modloader::get_failed_libraries().size();
+        logger.info("Successfully loaded {0} libraries! ({1} failed)", loaded_libs, failed_libs);
     }
 
     void load_mods(::alpha1::logger &logger) {
