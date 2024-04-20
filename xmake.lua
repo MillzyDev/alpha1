@@ -1,4 +1,5 @@
 add_rules("mode.debug", "mode.release")
+add_rules("c++.unity_build")
 
 add_requires("microsoft-detours")
 
@@ -13,6 +14,8 @@ target("proxy")
     set_prefixname("")
 
     add_shflags("-static") -- static link with stl
+
+    add_rules("c++.unity_build")
 target_end()
 
 target("alpha1")
@@ -30,4 +33,7 @@ target("alpha1")
 
     set_prefixname("")
     add_defines("ALPHA1_DO_EXPORTS")
+    add_rules("c++.unity_build")
+
+    add_includedirs("libil2cpp")
 target_end()
