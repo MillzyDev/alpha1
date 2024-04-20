@@ -29,7 +29,7 @@
 #define IL2CPP_FUNC(name) static il2cpp_##name##_t name
 
 namespace alpha1 {
-    void load_il2cpp_funcs();
+    void load_il2cpp_funcs(::alpha1::logger &logger);
 
     class ALPHA1_EXPORT il2cpp {
         friend void load_il2cpp_funcs(::alpha1::logger &logger);
