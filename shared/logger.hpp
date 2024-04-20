@@ -17,7 +17,6 @@ namespace alpha1 {
     private:
         static bool initialised;
         static std::ofstream log_file_stream;
-        static HANDLE console_out;
 
         mod_info mod_info;
 

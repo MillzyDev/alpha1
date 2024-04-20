@@ -1,4 +1,5 @@
 #include <chrono>
+#include <iostream>
 
 #include "logger.hpp"
 #include "files.hpp"
@@ -23,7 +24,6 @@ std::string get_timestamp() {
 namespace alpha1 {
     bool logger::initialised = false;
     std::ofstream logger::log_file_stream;
-    HANDLE logger::console_out;
 
     void logger::initialise_logger() {
         if (logger::initialised) {
@@ -58,17 +58,20 @@ namespace alpha1 {
         }
 
         // allow the console to display colour
-        logger::console_out = GetStdHandle(STD_OUTPUT_HANDLE);
-        if (logger::console_out == INVALID_HANDLE_VALUE) {
+        HANDLE console_out = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (console_out == INVALID_HANDLE_VALUE) {
             DISPLAY_ERROR_ABORT(GetLastError());
         }
+
+        // redirect stdout to console
+        freopen("CONOUT$", "w", stdout);
 
         DWORD mode;
-        if (!GetConsoleMode(logger::console_out, &mode)) {
+        if (!GetConsoleMode(console_out, &mode)) {
             DISPLAY_ERROR_ABORT(GetLastError());
         }
 
-        if (!SetConsoleMode(logger::console_out, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING)) {
+        if (!SetConsoleMode(console_out, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING)) {
             DISPLAY_ERROR_ABORT(GetLastError());
         }
 
@@ -95,10 +98,7 @@ namespace alpha1 {
             << msg << RESET << "\n";
         std::string console_str = console.str();
 
-        bool success = WriteConsoleA(logger::console_out, console_str.c_str(), console_str.size(), nullptr, nullptr);
-        if (!success) {
-            DISPLAY_ERROR_ABORT(GetLastError());
-        }
+        std::cout << console_str.c_str();
     }
 
     void logger::log_warn(std::string name, std::string msg) {
@@ -117,10 +117,7 @@ namespace alpha1 {
                 << msg << RESET << "\n";
         std::string console_str = console.str();
 
-        bool success = WriteConsoleA(logger::console_out, console_str.c_str(), console_str.size(), nullptr, nullptr);
-        if (!success) {
-            DISPLAY_ERROR_ABORT(GetLastError());
-        }
+        std::cout << console_str.c_str();
     }
 
     void logger::log_error(std::string name, std::string msg) {
@@ -139,9 +136,6 @@ namespace alpha1 {
                 << msg << RESET << "\n";
         std::string console_str = console.str();
 
-        bool success = WriteConsoleA(logger::console_out, console_str.c_str(), console_str.size(), nullptr, nullptr);
-        if (!success) {
-            DISPLAY_ERROR_ABORT(GetLastError());
-        }
+        std::cout << console_str.c_str();
     }
 }
