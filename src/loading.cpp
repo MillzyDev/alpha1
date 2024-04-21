@@ -130,11 +130,25 @@ namespace alpha1 {
             });
 
             load();
+
+            if (start) {
+                add_start_callback(start);
+            }
+            if (scene_loaded) {
+                add_scene_loaded_callback(scene_loaded);
+            }
+            if (scene_unloaded) {
+                add_scene_unloaded_callback(scene_unloaded);
+            }
+            if (quit) {
+                add_quit_callback(quit);
+            }
+
             logger.info("Loaded mod: {0} v{1} ({2})", info.name, info.version, info.author);
         }
 
-        size_t loaded_mods = ::alpha1::modloader::get_mods().size();
-        size_t failed_mods = ::alpha1::modloader::get_failed_mods().size();
-        logger.info("Successfully loaded {0} mods! ({1} failed)", loaded_mods, failed_mods);
+        size_t loaded_mod_count = ::alpha1::modloader::get_mods().size();
+        size_t failed_mod_count = ::alpha1::modloader::get_failed_mods().size();
+        logger.info("Successfully loaded {0} mods! ({1} failed)", loaded_mod_count, failed_mod_count);
     }
 }
