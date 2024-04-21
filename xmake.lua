@@ -28,12 +28,27 @@ target("alpha1")
 
     add_packages("microsoft-detours")
 
-    add_shflags("-static")
     add_shflags("-fdeclspec")
 
-    set_prefixname("")
     add_defines("ALPHA1_DO_EXPORTS")
     add_rules("c++.unity_build")
 
     add_includedirs("libil2cpp")
+target_end()
+
+target("example_mod")
+    set_kind("shared")
+    add_deps("alpha1")
+    set_languages("cxx20")
+
+    add_files("example_mod/src/*.cpp")
+
+    add_shflags("-fdeclspec")
+
+    add_rules("c++.unity_build")
+
+    add_includedirs("libil2cpp")
+    add_includedirs("shared")
+
+    add_linkdirs()
 target_end()
