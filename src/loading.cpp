@@ -5,7 +5,7 @@
 
 #define SHARED_LIB_EXT ".dll"
 
-typedef ::alpha1::mod_info (*get_info_t)();
+typedef void (*get_info_t)(::alpha1::mod_info *);
 
 namespace alpha1 {
     void load_libraries(::alpha1::logger &logger) {
@@ -109,7 +109,8 @@ namespace alpha1 {
             }
 
             get_info_t get_info = reinterpret_cast<get_info_t>(get_info_addr);
-            ::alpha1::mod_info info = get_info();
+            ::alpha1::mod_info info;
+            get_info(&info);
 
             load_t load = reinterpret_cast<load_t>(GetProcAddress(module, "load"));
             start_t start = reinterpret_cast<start_t>(GetProcAddress(module, "start"));
@@ -129,7 +130,9 @@ namespace alpha1 {
                 quit
             });
 
-            load();
+            if (load) {
+                load();
+            }
 
             if (start) {
                 add_start_callback(start);
