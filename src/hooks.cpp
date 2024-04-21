@@ -63,6 +63,17 @@ void scene_unloaded_detour(int32_t scene_handle, const MethodInfo *runtime_metho
     }
 }
 
+void quit_detour(const MethodInfo *runtime_method) {
+    quit_orig(runtime_method);
+
+    for (::alpha1::quit_t callback : ::alpha1::get_quit_callbacks()) {
+        callback();
+    }
+
+    // shouldn't need to unhook, but I guess it's polite to clean up after ourselves.
+    ::alpha1::unhook(reinterpret_cast<void **>(&quit_orig), reinterpret_cast<void *>(quit_detour));
+}
+
 namespace alpha1 {
     void hook_init(::alpha1::logger &logger) {
         hook_logger = &logger;
@@ -88,5 +99,6 @@ namespace alpha1 {
         ::alpha1::hook(reinterpret_cast<void **>(&active_scene_changed_orig), reinterpret_cast<void *>(active_scene_changed_detour));
         ::alpha1::hook(reinterpret_cast<void **>(&scene_loaded_orig), reinterpret_cast<void *>(scene_loaded_detour));
         ::alpha1::hook(reinterpret_cast<void **>(&scene_unloaded_orig), reinterpret_cast<void *>(scene_unloaded_detour));
+        ::alpha1::hook(reinterpret_cast<void **>(&quit_orig), reinterpret_cast<void *>(quit_detour));
     }
 }
