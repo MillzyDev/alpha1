@@ -15,3 +15,5 @@ namespace alpha1 {
      void unhook(void **target, void *detour);
 #endif
 }
+
+#undef ALPHA1_EXPORT

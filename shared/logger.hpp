@@ -47,3 +47,5 @@ namespace alpha1 {
         }
     };
 }
+
+#undef ALPHA1_EXPORT
