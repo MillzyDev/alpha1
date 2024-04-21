@@ -54,7 +54,13 @@ void scene_loaded_detour(int32_t scene_handle, int32_t mode, const MethodInfo *r
 }
 
 void scene_unloaded_detour(int32_t scene_handle, const MethodInfo *runtime_method) {
-    
+    scene_unloaded_orig(scene_handle, runtime_method);
+
+    static std::vector<::alpha1::scene_unloaded_t> callbacks = ::alpha1::get_scene_unloaded_callbacks();
+
+    for (::alpha1::scene_unloaded_t callback : callbacks) {
+        callback(scene_handle);
+    }
 }
 
 namespace alpha1 {
@@ -81,5 +87,6 @@ namespace alpha1 {
 
         ::alpha1::hook(reinterpret_cast<void **>(&active_scene_changed_orig), reinterpret_cast<void *>(active_scene_changed_detour));
         ::alpha1::hook(reinterpret_cast<void **>(&scene_loaded_orig), reinterpret_cast<void *>(scene_loaded_detour));
+        ::alpha1::hook(reinterpret_cast<void **>(&scene_unloaded_orig), reinterpret_cast<void *>(scene_unloaded_detour));
     }
 }
