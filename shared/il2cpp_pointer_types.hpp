@@ -161,8 +161,8 @@ FUNC_PTR_T(void, il2cpp_profiler_install_gc, (Il2CppProfileGCFunc callback, Il2C
 FUNC_PTR_T(void, il2cpp_profiler_install_fileio, (Il2CppProfileFileIOFunc callback));
 FUNC_PTR_T(void, il2cpp_profiler_install_thread, (Il2CppProfileThreadFunc start, Il2CppProfileThreadFunc end));
 FUNC_PTR_T(uint32_t, il2cpp_property_get_flags, (PropertyInfo * prop));
-FUNC_PTR_T(const MethodInfo*, il2cpp_property_get_get_method, (PropertyInfo * prop));
-FUNC_PTR_T(const MethodInfo*, il2cpp_property_get_set_method, (PropertyInfo * prop));
+FUNC_PTR_T(const MethodInfo*, il2cpp_property_get_get_method, (const PropertyInfo * prop));
+FUNC_PTR_T(const MethodInfo*, il2cpp_property_get_set_method, (const PropertyInfo * prop));
 FUNC_PTR_T(const char*, il2cpp_property_get_name, (PropertyInfo * prop));
 FUNC_PTR_T(Il2CppClass*, il2cpp_property_get_parent, (PropertyInfo * prop));
 FUNC_PTR_T(Il2CppClass*, il2cpp_object_get_class, (Il2CppObject * obj));
