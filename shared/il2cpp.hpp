@@ -17,6 +17,7 @@
 
 #include "il2cpp-api-types.h"
 #include "il2cpp-class-internals.h"
+#include "il2cpp-object-internals.h"
 
 #include "il2cpp_pointer_types.hpp"
 
