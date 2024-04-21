@@ -52,17 +52,42 @@ namespace alpha1 {
     void add_failed_mod(::alpha1::failed_library mod);
     void add_failed_library(::alpha1::failed_library library);
 
+    std::vector<::alpha1::start_t> get_start_callbacks();
+    std::vector<::alpha1::scene_loaded_t> get_scene_loaded_callbacks();
+    std::vector<::alpha1::scene_unloaded_t> get_scene_unloaded_callbacks();
+    std::vector<::alpha1::quit_t> get_quit_callbacks();
+
+    void add_start_callback(::alpha1::start_t callback);
+    void add_scene_loaded_callback(::alpha1::scene_loaded_t callback);
+    void add_scene_unloaded_callback(::alpha1::scene_unloaded_t callback);
+    void add_quit_callback(::alpha1::quit_t callback);
+
     class ALPHA1_EXPORT modloader {
         friend void add_mod(::alpha1::mod_metadata metadata);
         friend void add_library(::alpha1::library_metadata metadata);
         friend void add_failed_mod(::alpha1::failed_library mod);
         friend void add_failed_library(::alpha1::failed_library library);
 
+        friend std::vector<::alpha1::start_t> get_start_callbacks();
+        friend std::vector<::alpha1::scene_loaded_t> get_scene_loaded_callbacks();
+        friend std::vector<::alpha1::scene_unloaded_t> get_scene_unloaded_callbacks();
+        friend std::vector<::alpha1::quit_t> get_quit_callbacks();
+        friend void add_start_callback(::alpha1::start_t callback);
+        friend void add_scene_loaded_callback(::alpha1::scene_loaded_t callback);
+        friend void add_scene_unloaded_callback(::alpha1::scene_unloaded_t callback);
+        friend void add_quit_callback(::alpha1::quit_t callback);
+
+
     private:
         static std::vector<::alpha1::mod_metadata> loaded_mods;
         static std::vector<::alpha1::library_metadata> loaded_libraries;
         static std::vector<::alpha1::failed_library> failed_mods;
         static std::vector<::alpha1::failed_library> failed_libraries;
+
+        static std::vector<::alpha1::start_t> start_callbacks;
+        static std::vector<::alpha1::scene_loaded_t> scene_loaded_callbacks;
+        static std::vector<::alpha1::scene_unloaded_t> scene_unloaded_callbacks;
+        static std::vector<::alpha1::quit_t> quit_callbacks;
 
     public:
         [[nodiscard]] static bool get_mod_info(std::string mod_name, ::alpha1::mod_metadata *metadata);
@@ -72,3 +97,5 @@ namespace alpha1 {
         [[nodiscard]] static std::vector<::alpha1::failed_library> get_failed_libraries();
     };
 }
+
+#undef ALPHA1_EXPORT
