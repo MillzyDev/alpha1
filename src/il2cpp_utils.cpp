@@ -3,7 +3,7 @@
 namespace alpha1 {
     std::map<std::tuple<std::string, std::string>, Il2CppClass *> il2cpp_utils::class_cache;
     std::map<Il2CppClass *, std::map<std::tuple<std::string, int>, const MethodInfo *>> il2cpp_utils::method_cache;
-    std::map<Il2CppClass *, std::map<std::string, const FieldInfo *>> il2cpp_utils::field_cache;
+    std::map<Il2CppClass *, std::map<std::string, FieldInfo *>> il2cpp_utils::field_cache;
     std::map<Il2CppClass *, std::map<std::string, const PropertyInfo *>> il2cpp_utils::property_cache;
 
     Il2CppClass *il2cpp_utils::find_class(std::string namespaze, std::string name) {
@@ -58,5 +58,57 @@ namespace alpha1 {
 
     const MethodInfo *il2cpp_utils::find_method(std::string namespaze, std::string clazz, std::string name, int args) {
         return ::alpha1::il2cpp_utils::find_method(::alpha1::il2cpp_utils::find_class(namespaze, clazz), name, args);
+    }
+
+    FieldInfo *il2cpp_utils::find_field(Il2CppClass *klass, std::string name) {
+        if (!::alpha1::il2cpp_utils::field_cache.contains(klass)) {
+            ::alpha1::il2cpp_utils::field_cache.emplace(klass, std::map<std::string, FieldInfo *>());
+        }
+
+        std::map<std::string, FieldInfo *> inner_field_cache
+                = ::alpha1::il2cpp_utils::field_cache[klass];
+
+        if (inner_field_cache.contains(name)) {
+            return inner_field_cache[name];
+        }
+
+        FieldInfo *field = ::alpha1::il2cpp::class_get_field_from_name(klass, name.c_str());
+
+        if (field) {
+            ::alpha1::il2cpp_utils::field_cache[klass].emplace(name, field);
+            return field;
+        }
+
+        return nullptr;
+    }
+
+    FieldInfo *il2cpp_utils::find_field(std::string namespaze, std::string klass, std::string name) {
+        return ::alpha1::il2cpp_utils::find_field(::alpha1::il2cpp_utils::find_class(namespaze, klass), name);
+    }
+
+    const PropertyInfo *il2cpp_utils::find_property(Il2CppClass *klass, std::string name) {
+        if (!::alpha1::il2cpp_utils::property_cache.contains(klass)) {
+            ::alpha1::il2cpp_utils::property_cache.emplace(klass, std::map<std::string, const PropertyInfo *>());
+        }
+
+        std::map<std::string, const PropertyInfo *> inner_property_cache
+                = ::alpha1::il2cpp_utils::property_cache[klass];
+
+        if (inner_property_cache.contains(name)) {
+            return inner_property_cache[name];
+        }
+
+        const PropertyInfo *property = ::alpha1::il2cpp::class_get_property_from_name(klass, name.c_str());
+
+        if (property) {
+            ::alpha1::il2cpp_utils::property_cache[klass].emplace(name, property);
+            return property;
+        }
+
+        return nullptr;
+    }
+
+    const PropertyInfo *il2cpp_utils::find_property(std::string namespaze, std::string klass, std::string name) {
+        return ::alpha1::il2cpp_utils::find_property(::alpha1::il2cpp_utils::find_class(namespaze, klass), name);
     }
 }
