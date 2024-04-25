@@ -116,6 +116,8 @@ void cube_update_detour(Il2CppObject *self, const MethodInfo *runtime_method) {
         Il2CppObject *mesh_renderer = ::alpha1::il2cpp::field_get_value_object(mesh_renderer_field, self);
 
         material = ::alpha1::il2cpp::runtime_invoke(material_getter, mesh_renderer, nullptr, &exp);
+
+        firstRun = false;
     }
 
     static float hue;
