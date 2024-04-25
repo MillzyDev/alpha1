@@ -90,10 +90,36 @@ namespace alpha1 {
         static std::vector<::alpha1::quit_t> quit_callbacks;
 
     public:
+        /**
+         * Searches for a loaded mod metadata with the given name
+         * @param mod_name Name of the mod to search for.
+         * @param metadata The metadata of the mod if found. If the mod metadata could not be found, it will equate to nullptr.
+         * @return Whether the mod was able to be found.
+         */
         [[nodiscard]] static bool get_mod_info(std::string mod_name, ::alpha1::mod_metadata *metadata);
+
+        /**
+         * Gets all metadata of mods that were successfully loaded.
+         * @return A vector of successfully loaded mods.
+         */
         [[nodiscard]] static std::vector<::alpha1::mod_metadata> get_mods();
+
+        /**
+         * Gets all metadata of libraries that were successfully loaded.
+         * @return A vector of successfully loaded modlibraries.
+         */
         [[nodiscard]] static std::vector<::alpha1::library_metadata> get_libraries();
+
+        /**
+         * Gets info for all mods that failed to load.
+         * @return Information regarding the failed mod.
+         */
         [[nodiscard]] static std::vector<::alpha1::failed_library> get_failed_mods();
+
+        /**
+         * Gets info for all libraries that failed to load.
+         * @return Information regarding the failed library.
+         */
         [[nodiscard]] static std::vector<::alpha1::failed_library> get_failed_libraries();
     };
 }

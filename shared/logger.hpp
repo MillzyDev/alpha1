@@ -28,18 +28,33 @@ namespace alpha1 {
         explicit logger(struct mod_info mod_info);
         static void initialise_logger();
 
+        /**
+         * Logs to the console at the Info level.
+         * @param format A string format for the message.
+         * @param args Format arguments
+         */
         template<typename... Args>
         inline void info(std::format_string<Args...> format, Args &&...args) {
             std::string message = std::vformat(format.get(), std::make_format_args(args...));
             ::alpha1::logger::log_info(this->mod_info.name, message);
         }
 
+        /**
+         * Logs to the console at the Warning level.
+         * @param format A string format for the message.
+         * @param args Format arguments
+         */
         template<typename... Args>
         inline void warning(std::format_string<Args...> format, Args &&...args) {
             std::string message = std::vformat(format.get(), std::make_format_args(args...));
             ::alpha1::logger::log_warn(this->mod_info.name, message);
         }
 
+        /**
+         * Logs to the console at the Error level.
+         * @param format A string format for the message.
+         * @param args Format arguments
+         */
         template<typename... Args>
         inline void error(std::format_string<Args...> format, Args &&...args) {
             std::string message = std::vformat(format.get(), std::make_format_args(args...));
