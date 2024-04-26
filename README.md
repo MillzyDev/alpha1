@@ -3,7 +3,7 @@ A C++ modloader for Unity/IL2CPP games.
 
 ## Installation
 ### Installing alpha1
-Download one of the release artefacts from the [releases]() section and extract into the intended game's installation directory. Tested Unity versions: `2021.3.5`
+Download one of the release artefacts from the [releases](https://github.com/MillzyDev/alpha1/releases/latest) section and extract into the intended game's installation directory. Tested Unity versions: `2021.3.5`
 
 Once installed, run the game once before attempting to install any mods.
 
@@ -29,7 +29,7 @@ Q: When I install alpha1, nothing happens. <br>
 A: It is likely you are trying to use alpha1 on an incompatible game, alpha1 only works on IL2CPP Unity games. If you are attempting to use this with a Unity game and it is not loading it is likely either not an IL2CPP game, or uses an unsupported version of Unity.
 
 Q: A fatal error message box appears and forces the game to quit, how do I fix this? <br>
-A: Those message boxes only appear if for whatever reason, alpha1 cannot perform any operations that are required for it to fully function. Common causes of these errors are usually due to insufficient permissions, ensure that the game is not installed in any protected folders. If the issue persists, try reinstalling alpha1. If the error still occurs, create and [issue]() detailing the target game, any relevant logs and any additional relevant steps to reproduce the error.
+A: Those message boxes only appear if for whatever reason, alpha1 cannot perform any operations that are required for it to fully function. Common causes of these errors are usually due to insufficient permissions, ensure that the game is not installed in any protected folders. If the issue persists, try reinstalling alpha1. If the error still occurs, create an [issue](https://github.com/MillzyDev/alpha1/issues) detailing the target game, any relevant logs and any additional relevant steps to reproduce the error.
 
 ## Creating Mods
-For information regarding developing your own mods, please see the [wiki]() for guides and documentation.
+For information regarding developing your own mods, please see the [wiki](https://github.com/MillzyDev/alpha1/wiki) for guides and documentation.
